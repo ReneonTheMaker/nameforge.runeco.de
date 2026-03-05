@@ -1,13 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-{{template "head" .}}
-<body>
-  <!-- tailwind css -->
-  <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-4">Lovick Template</h1>
-    <p>This is the main content of the home page.</p>
-    <p>Hits: {{template "hits" .}}</p>
-    <a href="/ip" class="text-blue-500 hover:underline">Check your IP address</a>
-  </div>
-</body>
+  {{template "head" .}}
+  <body class="bg-gray-900">
+    <!-- tailwind css -->
+    <div class="container mx-auto px-4 py-8 w-full bg-gray-800 min-h-screen">
+      <!-- inverse image -->
+      <img src="/static/img/library.jpg" alt="Library" class="w-full h-auto mb-4 filter invert">
+      <h1 class="text-3xl font-bold mb-4 text-white font-display">nameforge.runeco.de</h1>
+      <p class="text-gray-300 mb-4 font-sans">Create proper names for your projects, in file or clean name format.</p>
+      <form action="/generate" method="post" class="mb-4">
+        <div class="flex flex-col md:flex-row gap-4">
+          <input type="text" name="input" placeholder="Enter a name or phrase" class="flex-1 p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Generate</button>
+        </div>
+      </form>
+      {{if .Names}}
+      <div class="bg-gray-700 p-4 rounded">
+        <h2 class="text-2xl font-bold mb-2 text-white font-display">Generated Names:</h2>
+        {{range $i, $n := .Names}}
+        {{if $i}}
+        <hr class="my-4 border-gray-600">
+        <p class="text-gray-300 p-4 italic bg-gray-900 rounded rounded-md mt-2">{{$n.Name}}</p>
+        {{else}}
+        <p class="text-gray-300 p-4 italic bg-gray-900 rounded rounded-md">{{$n.Name}}</p>
+        {{end}}
+        {{end}}
+      </div>
+      {{end}}
+      {{if .Error}}
+      <div class="bg-red-600 p-4 rounded mt-4">
+        <h2 class="text-2xl font-bold mb-2 text-white font-display">Error:</h2>
+        <p class="text-gray-300">{{.Error}}</p>
+      </div>
+      {{end}}
+      {{if .ID}}
+      <div class="bg-gray-700 p-4 rounded mt-4">
+        <p class="text-gray-300">Generated ID: <span class="font-mono text-blue-400">{{.ID}}</span></p>
+      </div>
+      {{end}}
+    </div>
+  </body>
 </html>

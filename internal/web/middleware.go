@@ -6,20 +6,26 @@ import (
 	"github.com/google/uuid"
 )
 
-func IdCookieMiddleware() fiber.Handler {
+func IdLocalsMiddleware() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		id := c.Cookies("id")
+		newId := uuid.New().String()
 		if id == "" {
-			newId := uuid.New().String()
 			c.Cookie(&fiber.Cookie{
-				Name:  "id",
-				Value: newId,
+				Name:     "id",
+				Path:     "/",
+				SameSite: "Lax",
+				HTTPOnly: true,
+				Value:    newId,
 			})
+			c.Locals("id", newId)
+			return c.Next()
 		}
+		c.Locals("id", id)
 		return c.Next()
 	}
 }
 
 func RegisterMiddleware(app *fiber.App) {
-	app.Use(IdCookieMiddleware())
+	app.Use(IdLocalsMiddleware())
 }

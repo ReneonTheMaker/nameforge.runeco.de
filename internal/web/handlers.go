@@ -2,54 +2,48 @@ package web
 
 import (
 	"app/internal/store"
-	"strconv"
-	"time"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 // index page handler
-func GetMain(hitStore *store.HitsStore) fiber.Handler {
+func GetMain(namesStore *store.NamesStore) fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		c.Set("Content-Type", "text/html")
-		// get number of hits from the store
-		return c.Render("index", nil)
-	}
-}
+		// get id cookie
+		id := c.Locals("id").(string)
 
-func GetHits(hitStore *store.HitsStore) fiber.Handler {
-	return func(c *fiber.Ctx) error {
-		c.Set("Content-Type", "text/html")
-		id := c.Cookies("id")
+		// get names for id
+		err := ""
 		if id == "" {
-			return c.SendString("0")
+			err = "ID cookie not found"
 		}
-		hits, _ := hitStore.GetHits(id)
-		return c.SendString(strconv.Itoa(hits))
+
+		// get names for id
+		names := namesStore.List(id)
+
+		return c.Render("index", fiber.Map{
+			"Error": err,
+			"ID":    id,
+			"Names": names,
+		})
 	}
 }
 
-func PostHits(hitStore *store.HitsStore) fiber.Handler {
+func PostGenerate(namesStore *store.NamesStore) fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		time.Sleep(2 * time.Second) // Simulate a delay for fetching IP information
-		id := c.Cookies("id")
-		if id == "" {
-			return c.SendString("0")
+		// get id cookie
+		id := c.Locals("id").(string)
+
+		// input in form named "input"
+		input := c.FormValue("input")
+
+		// validate input
+		if input == "" {
+			return c.Redirect("/")
 		}
-		hits, _ := hitStore.GetHits(id)
-		hits++
-		hitStore.SetHits(id, hits)
-		return c.SendString(strconv.Itoa(hits))
+
+		// generate names for id
+		namesStore.Create(id, input)
+		return c.Redirect("/")
 	}
-}
-
-func GetIpPage(c *fiber.Ctx) error {
-	c.Set("Content-Type", "text/html")
-	return c.Render("ipPage", nil)
-}
-
-func GetIp(c *fiber.Ctx) error {
-	ip := c.IP()
-	time.Sleep(2 * time.Second) // Simulate a delay for fetching IP information
-	return c.SendString(ip)
 }

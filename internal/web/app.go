@@ -10,12 +10,11 @@ import (
 )
 
 type App struct {
-	FiberApp    *fiber.App
-	HitStore    *store.HitsStore
+	FiberApp   *fiber.App
+	NamesStore *store.NamesStore
 }
 
 func NewApp() *App {
-
 	// Template Engine golang html/template
 	engine := html.New("./views", ".html")
 
@@ -35,17 +34,17 @@ func NewApp() *App {
 	app.Use(logger.New())
 	app.Use(cors.New())
 
-	// Create the hits store
-	hitStore := store.NewHitsStore()
+	// Create the names store
+	namesStore := store.NewNamesStore()
 
 	// Middleware to set ID cookie
 	RegisterMiddleware(app)
 
 	// Register Routes - defined in routes.go
-	RegisterRoutes(app, hitStore)
-	
+	RegisterRoutes(app, namesStore)
+
 	return &App{
-		FiberApp: app,
-		HitStore: hitStore,
+		FiberApp:   app,
+		NamesStore: namesStore,
 	}
 }
