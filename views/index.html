@@ -9,6 +9,25 @@
       <h1 class="text-3xl font-bold mb-4 text-white font-display">nameforge.runeco.de</h1>
       <p class="text-gray-300 mb-4 font-sans">Create proper names for your projects, in file or clean name format.</p>
       <form action="/generate" method="post" class="mb-4">
+        <div class="flex flex-row gap-4 mb-4">
+          <!-- checkbox for file name format -->
+          <label class="flex items-center gap-2 text-gray-300">
+            <input type="checkbox" name="file_format" class="form-checkbox h-5 w-5 text-blue-600">
+            <span>File Name</span>
+          </label>
+          <label class="flex items-center gap-2 text-gray-300">
+            <input type="checkbox" name="lowercase" class="form-checkbox h-5 w-5 text-blue-600">
+            <span>Lowercase</span>
+          </label>
+          <label class="flex items-center gap-2 text-gray-300">
+            <input type="checkbox" name="project" class="form-checkbox h-5 w-5 text-blue-600">
+            <span>Project</span>
+          </label>
+          <label class="flex items-center gap-2 text-gray-300">
+            <input type="number" name="version" min="0" max="100" class="form-number h-5 w-10 text-gray-600">
+            <span>Version Number</span>
+          </label>
+        </div>
         <div class="flex flex-col md:flex-row gap-4">
           <input type="text" name="input" placeholder="Enter a name or phrase" class="flex-1 p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
           <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Generate</button>
