@@ -25,7 +25,6 @@ func GetMain(namesStore *store.NamesStore) fiber.Handler {
 
 		return c.Render("index", fiber.Map{
 			"Error": err,
-			"ID":    id,
 			"Names": names,
 		})
 	}
@@ -44,8 +43,11 @@ func PostGenerate(namesStore *store.NamesStore) fiber.Handler {
 			return c.Redirect("/")
 		}
 
+		// create good project name
+		output := CreateProjectName(input)
+
 		// generate names for id
-		namesStore.Create(id, input)
+		namesStore.Create(id, output)
 		return c.Redirect("/")
 	}
 }
