@@ -57,7 +57,7 @@ func (n *NamesStore) Create(id string, name string) {
 	fmt.Printf("Creating name for id: %s\n", id)
 	fmt.Println(n.names[id])
 	// prepend name to the list of names for the id
-	n.names[id] = append([]model.Name{{Name: name}}, n.names[id]...)
+	n.names[id] = append([]model.Name{{Name: name, DateOfCreation: time.Now()}}, n.names[id]...)
 	fmt.Println(n.names[id])
 }
 

@@ -30,24 +30,10 @@ func printtime(time time.Time) string {
 	return time.Format("2006-01-02 15:04:05")
 }
 
-func printstatus(status int) string {
-	switch status {
-	case 0:
-		return "Pending"
-	case 1:
-		return "In Progress"
-	case 2:
-		return "Synced"
-	default:
-		return "Unknown"
-	}
-}
-
 func registerRenderFunctions(engine *html.Engine) {
 	// Register custom template functions
 	engine.AddFunc("default", defaultValue)
 	engine.AddFunc("dict", dict)
 	engine.AddFunc("printf", printf)
 	engine.AddFunc("printtime", printtime)
-	engine.AddFunc("printstatus", printstatus)
 }

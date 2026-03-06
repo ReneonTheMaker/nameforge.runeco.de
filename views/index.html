@@ -39,9 +39,15 @@
         {{range $i, $n := .Names}}
         {{if $i}}
         <hr class="my-4 border-gray-600">
-        <p class="text-gray-300 p-4 italic bg-gray-900 rounded rounded-md mt-2">{{$n.Name}}</p>
+        <div class="text-gray-300 p-4 italic bg-gray-900 rounded rounded-md mt-2">
+          <p>{{$n.Name}}</p>
+          <p class="text-sm text-gray-700">{{printtime $n.DateOfCreation}}</p>
+        </div>
         {{else}}
-        <p class="text-gray-300 p-4 italic bg-gray-900 rounded rounded-md">{{$n.Name}}</p>
+        <div class="text-gray-300 p-4 italic bg-gray-900 rounded rounded-md mt-2">
+          <p>{{$n.Name}}</p>
+          <p class="text-sm text-gray-700">{{printtime $n.DateOfCreation}}</p>
+        </div>
         {{end}}
         {{end}}
       </div>
