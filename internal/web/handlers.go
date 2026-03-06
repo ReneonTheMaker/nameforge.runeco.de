@@ -36,7 +36,7 @@ func PostGenerate(namesStore *store.NamesStore) fiber.Handler {
 		// get id cookie
 		id := c.Locals("id").(string)
 
-		// input in form named "input"
+		// input in form named "input" (idiomatic way to get form values in Fiber)
 		input := strings.Clone(c.FormValue("input"))
 
 		// validate input
