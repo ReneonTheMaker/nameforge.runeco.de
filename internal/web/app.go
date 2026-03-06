@@ -1,6 +1,8 @@
 package web
 
 import (
+	"log"
+
 	"app/internal/store"
 
 	"github.com/gofiber/fiber/v2"
@@ -15,6 +17,7 @@ type App struct {
 }
 
 func NewApp() *App {
+	log.Println("Initializing web application...")
 	// Template Engine golang html/template
 	engine := html.New("./views", ".html")
 
@@ -42,6 +45,8 @@ func NewApp() *App {
 
 	// Register Routes - defined in routes.go
 	RegisterRoutes(app, namesStore)
+
+	log.Println("Web application initialized successfully.")
 
 	return &App{
 		FiberApp:   app,

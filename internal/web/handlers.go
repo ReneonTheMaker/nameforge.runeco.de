@@ -1,6 +1,8 @@
 package web
 
 import (
+	"strings"
+
 	"app/internal/store"
 
 	"github.com/gofiber/fiber/v2"
@@ -35,7 +37,7 @@ func PostGenerate(namesStore *store.NamesStore) fiber.Handler {
 		id := c.Locals("id").(string)
 
 		// input in form named "input"
-		input := c.FormValue("input")
+		input := strings.Clone(c.FormValue("input"))
 
 		// validate input
 		if input == "" {

@@ -1,9 +1,10 @@
 package main
 
 import (
+	"log"
+
 	"app/internal/config"
 	"app/internal/web"
-	"log"
 )
 
 func main() {
@@ -13,5 +14,6 @@ func main() {
 		log.Fatal(err)
 	}
 	app := web.NewApp()
+	app.NamesStore.StartCleanupThread()
 	log.Fatal(app.FiberApp.Listen(":" + cfg.Web.Port))
 }
