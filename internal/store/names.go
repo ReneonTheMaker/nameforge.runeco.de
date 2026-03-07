@@ -69,3 +69,9 @@ func (n *NamesStore) List(id string) []model.Name {
 	}
 	return []model.Name{}
 }
+
+func (n *NamesStore) Clear(id string) {
+	n.mu.Lock()
+	defer n.mu.Unlock()
+	delete(n.names, id)
+}
