@@ -39,12 +39,13 @@ func NewApp() *App {
 
 	// Create the names store
 	namesStore := store.NewNamesStore()
+	renderConfigStore := store.NewRenderConfigStore()
 
 	// Middleware to set ID cookie
 	RegisterMiddleware(app)
 
 	// Register Routes - defined in routes.go
-	RegisterRoutes(app, namesStore)
+	RegisterRoutes(app, namesStore, renderConfigStore)
 
 	log.Println("Web application initialized successfully.")
 

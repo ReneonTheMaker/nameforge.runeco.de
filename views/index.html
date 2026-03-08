@@ -12,23 +12,23 @@
         <div class="flex flex-row gap-4 mb-4">
           <!-- checkbox for file name format -->
           <label class="flex items-center gap-2 text-gray-300">
-            <input id="file_format" type="checkbox" name="file_format" class="form-checkbox h-5 w-5 text-blue-600">
+            <input id="file_format" type="checkbox" name="file_format" class="form-checkbox h-5 w-5 text-blue-600" {{if .Config.FileName}}checked{{end}}>
             <span>File Name</span>
           </label>
           <label class="flex items-center gap-2 text-gray-300">
-            <input id="lower_case" type="checkbox" name="lower_case" class="form-checkbox h-5 w-5 text-blue-600">
+            <input id="lower_case" type="checkbox" name="lower_case" class="form-checkbox h-5 w-5 text-blue-600" {{if .Config.Lowercase}}checked{{end}}>
             <span>Lowercase</span>
           </label>
           <label class="flex items-center gap-2 text-gray-300">
-            <input id="project" type="checkbox" name="project" class="form-checkbox h-5 w-5 text-blue-600">
+            <input id="project" type="checkbox" name="project" class="form-checkbox h-5 w-5 text-blue-600" {{if .Config.Project}}checked{{end}}>
             <span>Project</span>
           </label>
           <label class="flex items-center gap-2 text-gray-300">
-            <input id="version" type="number" name="version" min="0" max="100" class="form-number h-5 w-10 text-gray-600">
+            <input id="version" type="number" name="version" min="0" max="100" class="form-number h-5 w-10 text-gray-600" {{if neq .Config.VersionNumber 0}} value="{{.Config.VersionNumber}}"{{end}}>
             <span>Version Number</span>
           </label>
           <label class="flex items-center gap-2 text-gray-300">
-            <input id="extension" type="text" name="extension" placeholder="mp3" class="form-text h-5 w-20 text-gray-600">
+            <input id="extension" type="text" name="extension" placeholder="mp3" class="form-text h-5 w-20 text-gray-600" {{if .Config.FileExtension}} value="{{.Config.FileExtension}}"{{end}}>
             <span>File Extension</span>
           </label>
         </div>

@@ -30,10 +30,20 @@ func printtime(time time.Time) string {
 	return time.Format("2006-01-02 15:04:05")
 }
 
+func equals(a any, b any) bool {
+	return a == b
+}
+
+func notEquals(a any, b any) bool {
+	return a != b
+}
+
 func registerRenderFunctions(engine *html.Engine) {
 	// Register custom template functions
 	engine.AddFunc("default", defaultValue)
 	engine.AddFunc("dict", dict)
 	engine.AddFunc("printf", printf)
 	engine.AddFunc("printtime", printtime)
+	engine.AddFunc("eq", equals)
+	engine.AddFunc("neq", notEquals)
 }
